@@ -1,55 +1,56 @@
-# CLI do Tizen e binários locais
+# Binários e wrappers da CLI Tizen
 
-## Visão geral
+## Objetivo
 
-Este documento explica como usar a CLI do Tizen em contexto de desenvolvimento para Samsung Smart TV e como o projeto local se relaciona com o SDK oficial.
+Este documento explica como o projeto interage com a CLI oficial do Tizen e como usar os wrappers locais para validar o ambiente antes de compilar ta aplicação.
 
 ## Importante
 
-Os executáveis oficiais do SDK do Tizen são distribuídos pela Samsung/Tizen e normalmente precisam ser instalados no computador do desenvolvedor. Eles não devem ser versionados como artefatos do repositório.
+Os executáveis reais do Tizen SDK são distribuídos pela Samsung/Tizen e devem ser instalados no ambiente local do desenvolvedor.
 
-## Instalação oficial
+Este repositório não inclui o SDK completo, apenas:
+
+- wrappers para invocar a CLI quando ela estiver no PATH
+- ajuda de diagnóstico em linha de comando
+- documentação oficial para o download do ambiente real
+
+---
+
+## Instalação oficial do SDK
 
 - Tizen Studio: https://developer.tizen.org/development/tizen-studio/download
 - Samsung TV Extensions: https://developer.samsung.com/smarttv/develop/tools/tv-extension/download.html
-- CLI docs: https://developer.samsung.com/smarttv/develop/getting-started/using-sdk/command-line-interface.html
+- CLI Tizen: https://developer.samsung.com/smarttv/develop/getting-started/using-sdk/command-line-interface.html
 
-## Verificação no sistema
+---
 
-No Linux/macOS:
+## Validação do ambiente
+
+### Linux/macOS
 
 ```bash
-which tizen
+./bin/check-sdk.sh
 ```
 
-No Windows:
+### Windows
 
 ```cmd
-where tizen
+bin\check-sdk.cmd
 ```
 
-## Comandos comuns
+Se a instalação estiver correta, a CLI exibirá a ajuda com os comandos disponíveis.
 
-```bash
-tizen create
+---
 
-tizen build
+## Wrapper principal
 
-tizen package
+Os scripts em `bin/` fazem a ponte entre seu projeto local e a CLI do SDK oficial:
 
-tizen install
+- `bin/tizen` (Linux/macOS)
+- `bin/tizen.cmd` (Windows)
+- `bin/check-sdk.sh` / `bin/check-sdk.cmd` para verificar se o SDK está disponível
 
-tizen run
-```
-
-## Wrapper local incluído
-
-Os scripts em `bin/` servem como ponte local para chamar o comando oficial do SDK quando ele estiver instalado.
-
-- `bin/tizen` para Linux/macOS
-- `bin/tizen.cmd` para Windows
-
-## Exemplo de uso
+Exemplo:
 
 ```bash
 ./bin/tizen --help
@@ -59,6 +60,24 @@ Os scripts em `bin/` servem como ponte local para chamar o comando oficial do SD
 bin\tizen.cmd --help
 ```
 
-## Observação
+---
 
-Se a ferramenta oficial não estiver instalada, os wrappers apenas exibem uma mensagem de orientação, sem rodar a ferramenta real.
+## Fluxo recomendado
+
+```bash
+./bin/check-sdk.sh
+./bin/tizen create
+./bin/tizen build
+./bin/tizen package
+./bin/tizen install
+./bin/tizen run
+```
+
+---
+
+## Observação importante
+
+Se a CLI oficial do Tizen não estiver instalada, os scripts returnam uma mensagem de orientação e não executam nada.
+
+Em ambientes reais, o uso correto é instalar o SDK, garantir que `tizen` esteja no PATH do sistema e então continuar com os comandos de build e deploy.
+

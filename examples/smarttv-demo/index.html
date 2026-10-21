@@ -3,53 +3,136 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SmartTV Demo</title>
+    <title>SmartTV Experience</title>
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <div class="app-shell">
-      <header class="topbar">
-        <div class="brand">Samsung Tizen TV</div>
-        <div class="status">Online</div>
-      </header>
-
-      <main class="content">
-        <section class="hero">
+    <div class="tv-shell">
+      <aside class="side-menu">
+        <div class="brand-box">
+          <div class="logo">S</div>
           <div>
-            <p class="eyebrow">App de demonstração</p>
-            <h1>SmartTV Demo</h1>
-            <p class="subtitle">
-              Exemplo mínimo de aplicação Tizen Web para Samsung Smart TV.
+            <div class="brand-name">Samsung</div>
+            <div class="brand-sub">Tizen TV</div>
+          </div>
+        </div>
+
+        <nav class="nav-panel">
+          <button class="nav-item active focusable" data-role="nav">Home</button>
+          <button class="nav-item focusable" data-role="nav">Live TV</button>
+          <button class="nav-item focusable" data-role="nav">Movies</button>
+          <button class="nav-item focusable" data-role="nav">Sports</button>
+          <button class="nav-item focusable" data-role="nav">Settings</button>
+        </nav>
+      </aside>
+
+      <main class="main-area">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Smart TV Home</p>
+            <h1>Explorar</h1>
+          </div>
+          <div class="status-group">
+            <span class="status-pill online">Online</span>
+            <span class="status-pill accent">4K</span>
+          </div>
+        </header>
+
+        <section class="hero-panel">
+          <div class="hero-copy">
+            <p class="label">Hoje na TV</p>
+            <h2>Galaxy Cinema</h2>
+            <p class="description">
+              Uma experiência moderna de conteúdo para TV com navegação por foco, menus e ações do controle remoto.
             </p>
+            <div class="hero-actions">
+              <button class="primary-btn focusable" data-role="action">Assistir</button>
+              <button class="secondary-btn focusable" data-role="action">Detalhes</button>
+            </div>
           </div>
-          <div class="badge">TV READY</div>
-        </section>
-
-        <section class="cards">
-          <div class="card focusable" data-role="menu-item">
-            <span class="label">Canal</span>
-            <strong id="channelName">TV aberta</strong>
-          </div>
-          <div class="card focusable" data-role="menu-item">
-            <span class="label">Volume</span>
-            <strong id="volumeLevel">32%</strong>
-          </div>
-          <div class="card focusable" data-role="menu-item">
-            <span class="label">Modo</span>
-            <strong id="modeText">Navegação</strong>
+          <div class="hero-poster">
+            <div class="poster-badge">New</div>
           </div>
         </section>
 
-        <section class="panel">
-          <h2>Controle remoto</h2>
-          <ul>
-            <li><span>UP / DOWN</span><span>Mover foco</span></li>
-            <li><span>OK</span><span>Selecionar item</span></li>
-            <li><span>VOL + / VOL -</span><span>Ajustar volume</span></li>
-            <li><span>CH + / CH -</span><span>Trocar canal</span></li>
-          </ul>
+        <section class="content-grid">
+          <div class="content-row-header">
+            <h3>Recomendados</h3>
+            <span>Mais</span>
+          </div>
+
+          <div class="cards-row">
+            <article class="media-card focusable" data-role="content">
+              <div class="media-thumb thumb-1"></div>
+              <div class="media-meta">
+                <strong>Blue Horizon</strong>
+                <span>Drama · 2h 10m</span>
+              </div>
+            </article>
+
+            <article class="media-card focusable" data-role="content">
+              <div class="media-thumb thumb-2"></div>
+              <div class="media-meta">
+                <strong>Night Circuit</strong>
+                <span>Sci-Fi · 1h 48m</span>
+              </div>
+            </article>
+
+            <article class="media-card focusable" data-role="content">
+              <div class="media-thumb thumb-3"></div>
+              <div class="media-meta">
+                <strong>City Pulse</strong>
+                <span>Action · 2h 04m</span>
+              </div>
+            </article>
+          </div>
         </section>
       </main>
+
+      <aside class="player-panel">
+        <div class="player-header">
+          <span class="mini-label">Agora</span>
+          <span class="dot"></span>
+        </div>
+
+        <div class="player-screen">
+          <div class="screen-glow"></div>
+        </div>
+
+        <div class="player-meta">
+          <div>
+            <p class="mini-label">Reprodução</p>
+            <h4 id="playerTitle">Blue Horizon</h4>
+          </div>
+          <div class="progress-box">
+            <div class="progress-bar">
+              <span id="progressFill"></span>
+            </div>
+            <div class="time-row">
+              <span id="timeCurrent">00:30</span>
+              <span id="timeTotal">01:40</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="controls">
+          <button class="control-btn focusable" data-role="control">◀</button>
+          <button class="control-btn focusable" data-role="control">▶</button>
+          <button class="control-btn focusable" data-role="control">II</button>
+          <button class="control-btn focusable" data-role="control">Vol</button>
+        </div>
+
+        <div class="info-grid">
+          <div class="info-box">
+            <span>Canal</span>
+            <strong id="channelValue">CineMax</strong>
+          </div>
+          <div class="info-box">
+            <span>Volume</span>
+            <strong id="volumeValue">58%</strong>
+          </div>
+        </div>
+      </aside>
     </div>
 
     <script src="js/main.js"></script>

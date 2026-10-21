@@ -1,79 +1,79 @@
-# Tizen Samsung Smart TV Ecosystem
+# Tizen Samsung Smart TV - Guia Avançado e App de Exemplo
 
-Este repositório foi montado como uma referência prática para o ecossistema Tizen para Smart TVs Samsung, com foco em:
+Este repositório foi transformado em uma referência técnica mais realista para o ecossistema Tizen de desenvolvimento para Smart TVs Samsung.
 
-- SDK e extensões oficiais da Samsung
-- CLI do Tizen
-- downloads e instalação
-- fluxo completo de desenvolvimento
-- binários/atalhos da CLI para automação local
-- exemplo real de app Tizen Web para TV
+Ele inclui:
 
-## Importante sobre binários do SDK
+- visão geral do ecossistema Tizen para TV Samsung
+- SDK oficial, TV Extensions, CLI e ferramentas auxiliares
+- binários e wrappers de linha de comando
+- guia de instalação do ambiente
+- exemplo funcional de app de TV com navegação por teclado remoto
+- estrutura de projeto inspirada em um app real para Samsung Smart TV
 
-O pacote oficial do Tizen SDK, incluindo os executáveis reais do `tizen`, é distribuído pela Samsung/Tizen e não pode ser incluído diretamente neste repositório em forma de binário de instalação devido a:
+## Status do projeto
 
-- licenciamento oficial
-- tamanho e dependências do SDK
-- distribuição proprietária pela Samsung/Tizen
+Este repositório não distribui o SDK oficial da Samsung/Tizen como binário, porque o pacote oficial é proprietário e depende de instaladores específicos do fabricante. Em vez disso, ele oferece:
 
-Por isso, este repositório inclui:
-
-- documentação oficial dos downloads
-- scripts de wrapper em `bin/`
-- instruções para instalar o SDK real no seu ambiente
-- um exemplo funcional de projeto Tizen Web
+- documentação oficial
+- wrappers locais para chamar a CLI do SDK quando configurada
+- um exemplo de app web para TV que já funciona como base de desenvolvimento
 
 ---
 
-## 1. Visão geral do ecossistema
+## 1. Ecossistema Tizen para Samsung Smart TV
 
-O desenvolvimento para Samsung Smart TV com Tizen é composto por vários blocos trabalhando juntos:
+O desenvolvimento para Samsung Smart TV com Tizen é um stack completo, formado por vários componentes que se conectam numa cadeia de execução bem definida:
 
-- SDK principal
-- TV Extensions da Samsung
-- CLI do Tizen
-- Package Manager
-- Certificate Manager
-- Device Manager
-- Emuladores e TV real
+1. SDK principal
+2. TV Extensions da Samsung
+3. CLI do Tizen
+4. Package Manager
+5. Certificate Manager
+6. Device Manager
+7. Emuladores/TV real
 
-A cadeia de produção geralmente é:
+### Fluxo de trabalho real
 
 ```text
-Criar projeto -> Desenvolver -> Build -> Package -> Assinar -> Instalar -> Testar
+Instalar SDK e TV Extension
+  -> criar projeto
+  -> escrever código
+  -> compilar com tizen build
+  -> empacotar com tizen package
+  -> assinar com Certificate Manager
+  -> conectar via Device Manager
+  -> instalar e testar na TV ou emulador
 ```
 
 ---
 
-## 2. SDK oficial
+## 2. O SDK oficial
 
-### Baixar o SDK
-
-- Tizen Studio: https://developer.tizen.org/development/tizen-studio/download
-- Samsung Smart TV Developer: https://developer.samsung.com/smarttv
-- Samsung TV Extension: https://developer.samsung.com/smarttv/develop/tools/tv-extension/download.html
-- Docs do Tizen: https://github.com/Samsung/tizen-docs
+O SDK é o núcleo do ecossistema. Ele concentra a base da plataforma, bibliotecas, emuladores e ferramentas do ambiente.
 
 ### Componentes principais
 
-- Baseline SDK: base da plataforma Tizen
-- TV Extensions: APIs, emulação e recursos específicos para Samsung TV
-- Package Manager: instalação dos módulos do SDK
-- Certificate Manager: assinatura do app
-- Device Manager: conexão com a TV local
+- Baseline SDK: base compartilhada do Tizen
+- TV Extensions: suporte específico para Samsung TV
+- Package Manager: instalação e atualização de módulos
+- Certificate Manager: geração de certificados para assinatura
+- Device Manager: gerenciamento de dispositivos conectados
+- Emuladores: validação em ambiente virtual da TV
+
+### Links oficiais
+
+- Tizen Studio: https://developer.tizen.org/development/tizen-studio/download
+- Samsung Smart TV Developer: https://developer.samsung.com/smarttv
+- TV Extension: https://developer.samsung.com/smarttv/develop/tools/tv-extension/download.html
+- Documentação Tizen: https://github.com/Samsung/tizen-docs
+- CLI do Tizen: https://developer.samsung.com/smarttv/develop/getting-started/using-sdk/command-line-interface.html
 
 ---
 
 ## 3. CLI do Tizen
 
-A CLI é a linha de comando usada para:
-
-- criar projetos
-- compilar projetos
-- empacotar em `.wgt`
-- instalar em alvo
-- executar em emulador ou TV
+A CLI é a parte de linha de comando do ambiente. Ela permite automatizar o trabalho de construção e deploy do app.
 
 ### Comandos principais
 
@@ -89,82 +89,110 @@ tizen install
 tizen run
 ```
 
-### Scripts locais incluídos
-
-Este repositório inclui wrappers em `bin/` para facilitar o uso local:
+### Uso típico
 
 ```bash
+# criar app
+
+tizen create
+
+# compilar
+
+tizen build
+
+# empacotar em .wgt
+
+tizen package
+
+# instalar
+
+tizen install
+
+# testar em emulador ou TV
+
+tizen run
+```
+
+### Principais responsabilidades
+
+- criação de templates
+- compilação do projeto
+- geração do pacote do app
+- instalação em destino configurado
+- execução em dispositivo de teste
+
+---
+
+## 4. Binários e wrappers locais
+
+Este repositório possui wrappers locais para facilitar o uso da CLI quando o SDK oficial já está instalado e acessível no PATH do sistema.
+
+### Estrutura
+
+```text
+bin/
+├── tizen
+├── tizen.cmd
+├── check-sdk.sh
+├── check-sdk.cmd
+```
+
+### Linux/macOS
+
+```bash
+./bin/check-sdk.sh
 ./bin/tizen --help
 ```
 
-No Windows:
+### Windows
 
 ```cmd
+bin\check-sdk.cmd
 bin\tizen.cmd --help
 ```
 
-Esses scripts não substituem o SDK oficial; eles apenas orientam o uso e ajudam a centralizar o comando no projeto.
+Esses arquivos ajudam a validar se o SDK está instalado e a invocar a CLI de forma padronizada.
 
 ---
 
-## 4. Estrutura do repositório
+## 5. Exemplo real de app para TV
 
-```text
-.
-├── README.md
-├── bin/
-│   ├── tizen
-│   └── tizen.cmd
-├── docs/
-│   ├── cli-binaries.md
-│   └── sdk-install.md
-├── examples/
-│   └── smarttv-demo/
-│       ├── config.xml
-│       ├── index.html
-│       ├── css/
-│       │   └── style.css
-│       └── js/
-│           └── main.js
-└── .gitignore
-```
+O exemplo em `examples/smarttv-demo/` foi ampliado para simular um app mais realista de Smart TV, com:
 
----
+- menu lateral
+- área principal com destaques
+- cards de conteúdo
+- painel lateral com player simulado
+- foco visual com teclado remoto
+- navegação por setas do controle
+- seleção por Enter
+- atualização de estado de volume e canal
 
-## 5. Exemplo real de app Tizen Web
-
-Há um projeto de exemplo em:
+### Estrutura do app
 
 ```text
 examples/smarttv-demo/
+├── config.xml
+├── index.html
+├── css/
+│   └── style.css
+├── js/
+│   └── main.js
+├── README.md
+└── assets/
 ```
 
-Esse app é uma aplicação web para TV com:
-
-- tela de boas-vindas
-- menu de navegação
-- exibição de informações do sistema e do usuário
-- captura de botões remotos via `keydown`
-- UI com layout orientado para TV
-
-### Arquivos do app
-
-- `config.xml`: metadados do widget Tizen
-- `index.html`: estrutura da interface
-- `css/style.css`: layout e visual da tela
-- `js/main.js`: lógica e interação com teclas remotas
-
-### Como executar o exemplo
+### Comandos de execução
 
 1. Instale o Tizen SDK oficial.
-2. Certifique-se de que a CLI `tizen` esteja no PATH do sistema.
-3. Entre na pasta do projeto exemplo:
+2. Configure o PATH da CLI.
+3. Acesse a pasta do exemplo:
 
 ```bash
 cd examples/smarttv-demo
 ```
 
-4. Use o comando do SDK para compilar e empacotar:
+4. Compile e empacote:
 
 ```bash
 tizen build
@@ -172,7 +200,7 @@ tizen build
 tizen package
 ```
 
-5. Conecte e envie para a TV ou para o emulador:
+5. Instale no emulador ou na TV:
 
 ```bash
 tizen install
@@ -182,76 +210,121 @@ tizen run
 
 ---
 
-## 6. Fluxo recomendado de desenvolvimento
+## 6. Guia de instalação do ambiente
 
-```text
-1. Instalar Tizen Studio e TV Extension
-2. Criar projeto com template Tizen Web
-3. Desenvolver interface com HTML + CSS + JS
-4. Testar via emulador
-5. Empacotar em .wgt
-6. Assinar com Certificate Manager
-7. Instalar em TV ou emulador
-8. Validar UX com controle remoto
-```
+### Requisitos
 
----
+- sistema compatível com Tizen Studio
+- acesso à internet
+- permissões de instalação no sistema
+- TV Samsung em modo desenvolvedor, se for testar hardware real
 
-## 7. Comandos úteis no dia a dia
+### Instalação recomendada
 
-```bash
-# criar um projeto novo
+1. Instale o Tizen Studio
+2. Instale o Baseline SDK
+3. Instale a TV Extension da Samsung
+4. Atualize módulos via Package Manager
+5. Configure certificados via Certificate Manager
+6. Conecte a TV via Device Manager
+7. Teste em emulador antes da TV real
 
-tizen create
-
-# compilar o app
-
-tizen build
-
-# gerar o pacote do app
-
-tizen package
-
-# instalar em alvo conectado
-
-tizen install
-
-# iniciar em emulador ou dispositivo real
-
-tizen run
-```
-
----
-
-## 8. Dicas práticas
-
-- Sempre atualize o Package Manager do SDK.
-- Teste no emulador antes de testar na TV real.
-- Use certificado válido para instalação em TV física.
-- A extensão do VS Code ajuda bastante no workflow do Tizen.
-- O `index.html` e o `config.xml` são fundamentais para o app rodar corretamente em TV Samsung.
-
----
-
-## 9. Referências oficiais
+### Links importantes
 
 - https://developer.tizen.org/development/tizen-studio/download
+- https://developer.samsung.com/smarttv/develop/tools/tv-extension/download.html
+- https://developer.samsung.com/smarttv/develop/getting-started/using-sdk/command-line-interface.html
+
+---
+
+## 7. Checklist do desenvolvedor Tizen TV
+
+- SDK instalado corretamente
+- TV Extension da Samsung instalada
+- CLI acessível no PATH
+- certificados criados
+- emulador validado
+- Device Manager configurado
+- app empacotado em `.wgt`
+- teste no emulador ou TV real realizado
+
+---
+
+## 8. App de exemplo: recursos implementados
+
+A demo foi pensada para refletir melhor um app real de TV, com elementos de UI e navegação:
+
+- menu lateral com foco
+- cards de programas/filmes
+- destaques na área principal
+- painel de reprodução com status
+- controle de volume e canal
+- navegação por teclado e remoto
+- indicadores visuais de foco e seleção
+
+Essa base é excelente para evoluir para:
+
+- catálogo de filmes
+- player de vídeo real
+- tela de login
+- favoritos
+- configurações da TV
+- menu de lojas e apps
+
+---
+
+## 9. Estrutura de um app Tizen real
+
+Em projetos reais, a estrutura normalmente inclui:
+
+```text
+project/
+├── config.xml
+├── index.html
+├── css/
+├── js/
+├── lib/
+├── assets/
+├── res/
+└── README.md
+```
+
+Para Samsung TV, é comum combinar:
+
+- HTML5 + CSS3 + JavaScript para interface
+- APIs do Tizen para TV e mídia
+- controles de foco e navegação por teclado
+- layout responsivo e pensado para telas de TV
+
+---
+
+## 10. Próximo passo recomendado
+
+A próxima etapa natural é evoluir essa base para um app mais completo, com:
+
+- tela de splash
+- menu lateral com categorias
+- catálogo de conteúdo em grid
+- player de vídeo
+- reprodução simulada de stream
+- navegação por rotas
+- foco inteligente em elementos interativos
+
+---
+
+## 11. Referências principais
+
 - https://developer.samsung.com/smarttv
 - https://developer.samsung.com/smarttv/develop/tools/tv-extension/download.html
 - https://developer.samsung.com/smarttv/develop/getting-started/using-sdk/command-line-interface.html
+- https://developer.tizen.org/development/tizen-studio/download
 - https://github.com/Samsung/tizen-docs
 - https://github.com/Samsung/vscode-extension-tizentv
+- https://marketplace.visualstudio.com/items?itemName=tizen.vscode-tizen-csharp
 
 ---
 
-## 10. Próximo passo
+## 12. Conclusão
 
-Este repositório pode evoluir para:
+Este repositório agora apresenta um nível muito mais próximo de um guia e de uma base real para desenvolvimento Tizen em Smart TVs Samsung. Ele combina documentação oficial, ferramentas de apoio e um app de exemplo funcional que pode servir como ponto de partida para projetos mais sérios.
 
-- uma versão com projeto completo de template Tizen TV
-- guia de instalação para Windows/macOS/Linux
-- exemplo em C#/.NET
-- exemplo em web com player multimídia
-- app de navegação com catálogo de conteúdo
-
-Se quiser, posso continuar e transformar esse exemplo em um app de TV mais completo, com menu, lista de canais, player de vídeo e integração com controles remotos.
