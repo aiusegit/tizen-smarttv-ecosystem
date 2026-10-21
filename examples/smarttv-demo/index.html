@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SmartTV Demo</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand">Samsung Tizen TV</div>
+        <div class="status">Online</div>
+      </header>
+
+      <main class="content">
+        <section class="hero">
+          <div>
+            <p class="eyebrow">App de demonstração</p>
+            <h1>SmartTV Demo</h1>
+            <p class="subtitle">
+              Exemplo mínimo de aplicação Tizen Web para Samsung Smart TV.
+            </p>
+          </div>
+          <div class="badge">TV READY</div>
+        </section>
+
+        <section class="cards">
+          <div class="card focusable" data-role="menu-item">
+            <span class="label">Canal</span>
+            <strong id="channelName">TV aberta</strong>
+          </div>
+          <div class="card focusable" data-role="menu-item">
+            <span class="label">Volume</span>
+            <strong id="volumeLevel">32%</strong>
+          </div>
+          <div class="card focusable" data-role="menu-item">
+            <span class="label">Modo</span>
+            <strong id="modeText">Navegação</strong>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Controle remoto</h2>
+          <ul>
+            <li><span>UP / DOWN</span><span>Mover foco</span></li>
+            <li><span>OK</span><span>Selecionar item</span></li>
+            <li><span>VOL + / VOL -</span><span>Ajustar volume</span></li>
+            <li><span>CH + / CH -</span><span>Trocar canal</span></li>
+          </ul>
+        </section>
+      </main>
+    </div>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>
